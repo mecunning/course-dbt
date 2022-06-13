@@ -1,0 +1,52 @@
+version: 2
+
+sources:
+
+  - name: greenery #
+    schema: public # 
+    database: dbt # 
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: {count: 24, period: hour}
+      error_after: {count: 48, period: hour}
+
+    tables:
+      - name: users 
+        loaded_at_field: created_at
+        description: >
+          Contains user information about each user 
+
+      - name: addresses 
+        loaded_at_field: created_at
+        description: >
+          Contains addresses for each user 
+
+      - name: events 
+        loaded_at_field: created_at
+        description: >
+          Contains events for each user session
+
+      - name: orders 
+        loaded_at_field: created_at
+        description: >
+          Contains order information
+
+      - name: products 
+        loaded_at_field: created_at
+        description: >
+          Contains product information about each product 
+
+      - name: order_items 
+        loaded_at_field: created_at
+        description: >
+          Contains product and quantity information for each order
+
+      - name: promos 
+        loaded_at_field: created_at
+        description: >
+          Contains promo information for each order
