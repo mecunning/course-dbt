@@ -1,0 +1,60 @@
+
+version: 2
+
+models:
+  - name: fact_page_views
+    description: "All page view events from greenery website"
+    columns:
+      - name: event_id
+        description: "Unique event ID"
+        tests:
+          - unique
+          - not_null
+      - name: session_id
+        description: "Unique session ID"
+        tests:
+          - not_null
+      - name: user_id
+        description: "Unique user ID for the session"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_users')
+              field: user_id
+      - name: page_url
+        description: "URL of webpage being viewed"
+        tests:
+          - not_null
+      - name: product_id
+        description: "Product ID of product page being viewed"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_products')
+              field: product_id
+
+  - name: product_order_facts
+    description: "Summary of order info per product"
+    columns:
+      - name: product_id
+        description: "Unique product ID"
+        tests:
+          - unique
+          - not_null
+      - name: current_price
+        description: "Current price of product"
+        tests:
+          - not_null
+      - name: current_inventory
+        description: "Current inventory of product"
+        tests:
+          - not_null
+          - positive_values
+      - name: total_quantity_sold
+        description: "Lifetime total quantity of all product's orders"
+        tests:
+          - positive_values
+      - name: total_revenue
+        description: "Lifetime total revenue of all product's orders"
+        tests:
+          - positive_values

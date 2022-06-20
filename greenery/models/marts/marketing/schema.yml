@@ -1,0 +1,53 @@
+
+version: 2
+
+models:
+  - name: fact_promos
+    description: "Information about how each greenery promo has been used"
+    columns:
+      - name: promo_id
+        description: "Unique promo identifier, the primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: discount
+        description: "Discount amount for each promo"
+        tests:
+          - not_null
+          - positive_values
+      - name: promo_status
+        description: "Status of each promo"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['inactive', 'active']
+      - name: promo_used_count
+        description: "How many times a promo has been used"
+        tests:
+          - positive_values
+      - name: promo_order_total
+        description: "Total revenue for orders that each promo is used"
+        tests:
+          - positive_values
+
+  - name: user_order_facts
+    description: "Summary of order info per user"
+    columns:
+      - name: user_id
+        description: "Unique user ID"
+        tests:
+          - unique
+          - not_null
+      - name: orders_count
+        description: "Total orders per user"
+      - name: promos_count
+        description: "Total promos used per user"
+      - name: first_order_utc
+        description: "Timestamp in UTC of user's first order"
+      - name: last_order_utc
+        description: "Timestamp in UTC of user's last order"
+      - name: lifetime_order_total
+        description: "Lifetime total of all of a user's orders"
+        tests:
+          - positive_values
+
