@@ -87,6 +87,11 @@ models:
         description: "Cost of the order items and shipping total for the order"
         tests:
           - not_null
+      - name: created_at_utc
+        description: "Order created at timestamp"
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: string
 
   - name: fact_sessions
     description: "Fact table with information about each user session on the greenery site"
@@ -102,5 +107,26 @@ models:
           - not_null
       - name: session_started_at_utc
         description: "The time in UTC that the session started at"
+        tests:
+          - not_null
+
+  - name: fact_product_sessions
+    description: "Fact table with information about each user session on the greenery site per product"
+    columns:
+      - name: session_id
+        description: "The unique session ID"
+        tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: "The unique user ID for the session"
+        tests:
+          - not_null
+      - name: session_started_at_utc
+        description: "The time in UTC that the session started at"
+        tests:
+          - not_null
+      - name: product_id
+        description: "The product ID viewed"
         tests:
           - not_null
