@@ -1,0 +1,13 @@
+version: 2
+
+exposures:  
+  - name: Web Funnel Dashboard
+    description: >
+      Models that are critical to our web funnel dashboard
+    type: dashboard
+    maturity: low
+    owner:
+      name: Michelle Gulen
+      email: michelle.gulen@greenery.com
+    depends_on:
+      - ref('funnel')
